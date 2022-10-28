@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         name.innerText = input.files[0].name
         document.getElementById('modal-emissao-content1').style.opacity=0
         document.getElementById('modal-emissao-content2').style.opacity=1
+        document.getElementById('modal-emissao-notas-pergunta').innerText= ''.concat('A emissão será realizada a partir dos dados do arquivo \'',input.files[0].name,'\'. Deseja continuar?')
       }
 
       input.addEventListener('change', () => {
@@ -26,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
           name.innerText = files[0].name
           document.getElementById('modal-emissao-content1').style.opacity=0
           document.getElementById('modal-emissao-content2').style.opacity=1
+          document.getElementById('modal-emissao-notas-pergunta').innerText= ''.concat('A emissão será realizada a partir dos dados do arquivo \'', files[0].name,'\'. Deseja continuar?')
+
         }
       })
     }
