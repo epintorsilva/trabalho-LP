@@ -13,10 +13,10 @@ def create_app():
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
+    login_manager.login_message = 'Por favor, faça o login para acessar essa página.'
     login_manager.init_app(app)
 
     from .models import User
-
 
     @login_manager.user_loader
     def  load_user(user_id ):
