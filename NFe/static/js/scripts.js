@@ -1,11 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Funções para exibir nome do arquivo carregado no botão de upload de arquivo
     let fileInputs = document.querySelectorAll('.file.has-name')
+    let first_signup_fields = document.querySelector('.first-signup-fields')
+    let last_signup_fields = document.querySelector('.last-signup-fields')
+
+    let previous_button_signup = document.querySelector('.previous-button-signup')
+    let next_button_signup = document.querySelector('.next-button-signup')
+
+    previous_button_signup.disabled = true
+    last_signup_fields.style.display = 'none'
+
+    previous_button_signup.addEventListener('click', () => {
+      previous_button_signup.disabled = true
+      next_button_signup.disabled = false
+      first_signup_fields.style.display = 'inline'
+      last_signup_fields.style.display = 'none'
+    })
+
+    next_button_signup.addEventListener('click', () => {
+      previous_button_signup.disabled = false
+      next_button_signup.disabled = true
+      first_signup_fields.style.display = 'none'
+      last_signup_fields.style.display = 'inline'
+    })
+   
     for (let fileInput of fileInputs) {
       let input = fileInput.querySelector('.file-input')
       let name = fileInput.querySelector('.file-name')
 
-      
       if (input.files.length === 0) {
         name.innerText = 'Nenhum arquivo selecionado'
         document.getElementById('modal-emissao-content1').style.opacity=1
