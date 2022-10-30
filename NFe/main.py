@@ -92,18 +92,20 @@ def emissao_nota():
 @main.route('/emissao-nota', methods=['POST'])
 @login_required
 def emissao_nota_post():
+
+    arquivo = request.files['resume']
     
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-    driver.get("http://www.python.org")
-    position = driver.get_window_position()
-    driver.minimize_window()
-    driver.set_window_position(position['x'], position['y'])
-    time.sleep(5)
-    assert "Python" in driver.title
-    elem = driver.find_element(By.NAME, "q")
-    elem.clear()
-    elem.send_keys("pycon")
-    time.sleep(5)
-    elem.send_keys(Keys.RETURN)
-    assert "No results found." not in driver.page_source
-    return render_template('emissao_realizada.html')
+    # driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    # driver.get("http://www.python.org")
+    # position = driver.get_window_position()
+    # driver.minimize_window()
+    # driver.set_window_position(position['x'], position['y'])
+    # time.sleep(5)
+    # assert "Python" in driver.title
+    # elem = driver.find_element(By.NAME, "q")
+    # elem.clear()
+    # elem.send_keys("pycon")
+    # time.sleep(5)
+    # elem.send_keys(Keys.RETURN)
+    # assert "No results found." not in driver.page_source
+    # return render_template('emissao_realizada.html')

@@ -25,32 +25,41 @@ def login_post():
     login_user(user, remember=lembrar)
     return redirect(url_for('main.profile'))
 
-@auth.route('/signup')
-def signup():
-    return render_template('signup.html')
+@auth.route('/signup1')
+def signup1():
+    return render_template('signup1.html')
 
-@auth.route('/signup', methods=['POST'])
-def signup_post():
+@auth.route('/signup2', methods=['POST'])
+def signup2():
+    usuario = request.form.get('usuario')
+    senha1 = request.form.get('senha1')
+    senha2 = request.form.get('senha2')
+
+    if senha1 != senha2:
+        flash('Senhas informadas são diferentes')
+        return redirect(url_for('auth.signup1'))
+    
+    if usuario == '' or senha1 == '' or senha2 == '':
+        flash('Os campos de nome de usuário, senha e confirmação de senha são obrigatórios.')
+        return redirect(url_for('auth.signup1'))
+
+    user = User.query.filter_by(usuario=usuario).first()
+    if user:
+        flash('Nome de usuário já existe. Vá para a página de login.')
+        return redirect(url_for('auth.signup1'))
+
+    args= {'usuario':usuario,'senha1':senha1,'senha2':senha2}
+    
+    return render_template('signup2.html', args=args)
+
+@auth.route('/signup2_post', methods=['POST'])
+def signup2_post():
     usuario = request.form.get('usuario')
     senha1 = request.form.get('senha1')
     senha2 = request.form.get('senha2')
 
     cpf = request.form.get('cpf')
     cnpj = request.form.get('cnpj')
-
-    user = User.query.filter_by(usuario=usuario).first()
-
-    if senha1 != senha2:
-        flash('Senhas informadas são diferentes')
-        return redirect(url_for('auth.signup'))
-
-    if usuario == '' or senha1 == '' or senha2 == '':
-        flash('Os campos de nome de usuário, senha e confirmação de senha são obrigatórios.')
-        return redirect(url_for('auth.signup'))
-
-    if user:
-        flash('Nome de usuário já existe')
-        return redirect(url_for('auth.signup'))
     
     new_user = User(usuario=usuario, senha=generate_password_hash(senha1, method='sha256'), cpf=cpf, cnpj=cnpj)
     db.session.add(new_user)
