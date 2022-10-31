@@ -1,11 +1,13 @@
 from tabnanny import check
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_required, current_user
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import User
 import time
 import pandas as pd
+
+from .teste import auto
 
 main = Blueprint('main', __name__)
 
@@ -33,7 +35,7 @@ def profile_edit_post():
 
     user = User.query.filter_by(usuario=usuario).first()
 
-    if user:
+    if user and user.usuario != current_user.usuario:
         flash('Nome de usuário já existe')
         return redirect(url_for('main.profile'))
     
@@ -74,7 +76,7 @@ def change_password_post():
     user.senha = generate_password_hash(nova_senha_1, method='sha256')
     print(user.senha)
     db.session.commit()
-    
+    current_user.senha = senha_atual
     flash('Senha trocada com sucesso!')
     return redirect(url_for('auth.logout'))
 
@@ -83,8 +85,14 @@ def change_password_post():
 def emissao_nota():
     return render_template('emissao_nota.html')
 
-@main.route('/emissao-nota2', methods=['POST'])
+@main.route('/emissao_nota_post', methods=['POST'])
 @login_required
 def emissao_nota_post():
-    print('1')
     arquivo = request.files.get("arquivo")
+    auto(arquivo, session['senha'], current_user.cpf, current_user.cnpj)
+    if not arquivo.filename:
+        flash('Nenhum arquivo selecionado.')
+        return redirect(url_for('main.emissao_nota'))
+
+    return render_template("emissao_realizada.html")
+

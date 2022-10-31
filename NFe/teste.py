@@ -6,8 +6,7 @@ import time
 
 
 
-def entrar_na_prefeitura():
-    
+def entrar_na_prefeitura(senha, cpf, cnpj):
     pyautogui.PAUSE = 1.5
 
     pyautogui.hotkey('ctrl','t')
@@ -25,11 +24,11 @@ def entrar_na_prefeitura():
     pyautogui.press('right')
     pyautogui.press('tab')
     pyautogui.press('tab')
-    pyautogui.write('')
+    pyautogui.write(cnpj) #CNPJ do contribuinte
     pyautogui.press('tab')
-    pyautogui.write('')
+    pyautogui.write(cpf)# CPF do usuário
     pyautogui.press('tab')
-    pyautogui.write('')
+    pyautogui.write(senha) #senha
     pyautogui.press('tab')
     time.sleep(5)
     pyautogui.press('enter')
@@ -145,7 +144,7 @@ def extrair_dados(arquivo):
 
 
 
-def auto(arquivo):
-    entrar_na_prefeitura()
+def auto(arquivo, senha, cpf, cnpj):
+    entrar_na_prefeitura(senha, cpf, cnpj)
     extrair_dados(arquivo)
     
