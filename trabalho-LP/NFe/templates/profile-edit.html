@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+<!-- Página de edição de perfil -->
+{% block content %}
+<div class="column is-4 is-offset-4">
+    <h3 class="title has-text-centered">Edição de perfil</h3>
+    <div class="box">
+        <form method="POST" action="{{url_for('main.profile_edit_post')}}">
+            <div class="field">
+                <label class="label"> Usuário</label>
+                <div class="control">
+                    <input class="input is-large" type="text" name="usuario" autofocus="" value="{{user.usuario}}">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label"> CPF</label>
+                <div class="control">
+                    <input class="input is-large" type="text" name="cpf" autofocus="" value="{{user.cpf}}">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label"> CNPJ</label>
+                <div class="control">
+                    <input class="input is-large" type="text" name="cnpj" autofocus="" value="{{user.cnpj}}">
+                </div>
+            </div>
+
+            <div class="buttons is-centered">
+                <button class="button is-block is-success">
+                    <span class="icon">
+                        <i class="fa fa-save"></i>
+                    </span>
+                    <span>Salvar alterações</span>
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

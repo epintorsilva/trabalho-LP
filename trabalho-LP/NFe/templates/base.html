@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Auth Example</title>
+
+    <!-- Importação de estilizações CSS do Bulma e do arquivo base.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/base.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- Importação de scripts do Font Awesome e do arquivo scripts.css, usado para adicionar dinamismo em algumas partes da interface -->
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</head>
+
+<body>
+    <!-- Barra de navegação -->
+    <section class="hero is-fullheight">
+        <div class="hero-head">
+            <nav class="navbar hero is-success green-background">
+                <div class="container">
+                    <div id="navbarMenuHeroA" class="navbar-menu">
+                        <div class="navbar-end">
+                            <a href="{{url_for('main.index')}}" class="navbar-item">
+                                Home
+                            </a>
+                            {% if current_user.is_authenticated %}
+                            <a href="{{url_for('main.emissao_nota')}}" class="navbar-item">
+                                Emissão de Notas Fiscais
+                            </a>
+                            <a href="{{url_for('main.profile')}}" class="navbar-item">
+                                Perfil
+                            </a>
+                            {% endif %}
+                            {% if not current_user.is_authenticated %}
+                            <a href="{{url_for('auth.login')}}" class="navbar-item">
+                                Login
+                            </a>
+                            <a href="{{url_for('auth.signup1')}}" class="navbar-item">
+                                Cadastro
+                            </a>
+                            {% endif %}
+                            {% if current_user.is_authenticated %}
+                            <a href="{{url_for('auth.logout')}}" class="navbar-item">
+                                Logout
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <!-- Bloco a ser preenchido pelas páginas da aplicação (todas extendem o arquivo base.html) -->
+        <div class="hero-body">
+            <div class="container">
+                {%block content%}
+                {% endblock %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal onde aparece o spinner de carregamento na emissão de notas -->
+    <div class="modal" id="modal-emissao-notas">
+        <div class="modal-background"></div>
+        <div class="modal-content is-centered">
+            <div class="box content" id ='modal-emissao-content2'>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="loader-wrapper " id="loader-emissao">
+                    <div class="loader is-loading"></div>
+                    <h4> Realizando emissão, não mexa no computador ...</h4>
+                </div>
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+</body>
+</html>
