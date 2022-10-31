@@ -4,12 +4,27 @@ from flask_login import login_user, login_required, logout_user, current_user
 from .models import User
 from . import db
 
+''' 
+Este arquivo guarda as funções mapeadas a rotas relacionadas à operações de autenticação.
+As rotas são configuradas com decoradores sobre a class Blueprint do flask. O módulo é
+importado no arquivo __init__.py e registrado no app lá instanciado como um blueprint.
+
+Blueprints são conceitos no Flask que representam aplicações modulares independentes, que
+podem ser integradas em aplicações maiores.
+'''
 auth = Blueprint('auth', __name__)
 
+'''
+    Rota de navegação à página de login.
+'''
 @auth.route('/login')
 def login():
     return render_template('login.html')
 
+'''
+    Rota de realização do login, na qual as informações dadas pelo usuário (nome de usuário e senha)
+    são validadas e usadas para logá-lo.
+'''
 @auth.route('/login', methods=['POST'])
 def login_post():
     usuario = request.form.get('usuario')
@@ -26,10 +41,18 @@ def login_post():
     session["senha"] = senha
     return redirect(url_for('main.profile'))
 
+'''
+    Primeira rota de cadastro. Ela retorna a primeira página de cadastro, na qual são exibidos os
+    campos de usuário e senha para serem preenchidos
+'''
 @auth.route('/signup1')
 def signup1():
     return render_template('signup1.html')
 
+'''
+    Segunda rota de cadastro, que retorna uma página exibindo os campos de CPF e CNPJ para serem
+    preenchidos. Desta página o usuário submete seus dados para registro.
+'''
 @auth.route('/signup2', methods=['POST'])
 def signup2():
     usuario = request.form.get('usuario')
@@ -53,6 +76,9 @@ def signup2():
     
     return render_template('signup2.html', args=args)
 
+'''
+    Rota de registro de novos usuários, na qual seus dados são processados e registrados no banco de dados.
+'''
 @auth.route('/signup2_post', methods=['POST'])
 def signup2_post():
     usuario = request.form.get('usuario')
@@ -68,6 +94,10 @@ def signup2_post():
 
     return redirect(url_for('auth.login'))
 
+
+'''
+    Rota de desautenticação de usuário. Usada quando o usuário deseja se deslogar ou quando troca de senha.
+'''
 @auth.route('/logout')
 @login_required
 def logout():

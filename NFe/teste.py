@@ -5,7 +5,14 @@ import pyautogui
 import time
 
 
+'''
+    Este módulo contém funções para automação de emissão de notas fiscais com o autopy, uma
+    biblioteca de manipulação do teclado e mouse.
+'''
 
+'''
+    Essa função abre o site da prefeitura e preenche os dados de login.
+'''
 def entrar_na_prefeitura(senha, cpf, cnpj):
     pyautogui.PAUSE = 1.5
 
@@ -34,6 +41,9 @@ def entrar_na_prefeitura(senha, cpf, cnpj):
     pyautogui.press('enter')
     time.sleep(5)
 
+'''
+    Função para preencher os primeiros campos para geração de nota fiscal no site da prefeitura
+'''
 def prencher_primeiro_campo(CPF,discriminação_dos_Serviços):
     
     pyautogui.PAUSE = 1.5
@@ -65,6 +75,9 @@ def prencher_primeiro_campo(CPF,discriminação_dos_Serviços):
     pyautogui.click(975,585)
     time.sleep(2)
 
+'''
+    Função para preencher os últimos campos para geração de nota fiscal no site da prefeitura
+'''
 def prencher_segundo_campo(totalServico,faturamento,alicotaISS,valor_licota,PIS,CONFIRNS,IR,INSS,CSLL,retencoes,msg):
     e = faturamento
     g = valor_licota
@@ -117,6 +130,10 @@ def prencher_segundo_campo(totalServico,faturamento,alicotaISS,valor_licota,PIS,
     pyautogui.write(msg)
     #pyautogui.hotkey('ctrl','s')
 
+'''
+    Função para extração dos dados do arquivo do excel carregado pelo usuário, para usá-los no 
+    preenchimento dos formulários do site da prefeitura
+'''
 def extrair_dados(arquivo):
     book = openpyxl.load_workbook(arquivo)
     page = book.sheetnames[0]
@@ -143,7 +160,9 @@ def extrair_dados(arquivo):
             prencher_segundo_campo(d,e,f,g,h,i,j,k,l,m,n)
 
 
-
+'''
+    Função que invoca as demais para emissão das notas fiscais
+'''
 def auto(arquivo, senha, cpf, cnpj):
     entrar_na_prefeitura(senha, cpf, cnpj)
     extrair_dados(arquivo)

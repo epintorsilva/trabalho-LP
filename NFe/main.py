@@ -8,23 +8,41 @@ import time
 import pandas as pd
 
 from .teste import auto
-
+''' 
+Este arquivo guarda as funções mapeadas a rotas não relacionadas à operações de autenticação.
+As rotas são configuradas com decoradores sobre a class Blueprint do flask. O módulo é
+importado no arquivo __init__.py e registrado no app lá instanciado como um blueprint.
+'''
 main = Blueprint('main', __name__)
 
+'''
+    Função para a rota principal da aplicação, que retorna a página inicial.
+'''
 @main.route('/')
 def index():
     return render_template('index.html')
 
+'''
+    Função para a rota de perfil.
+'''
 @main.route('/profile')
 @login_required
 def profile():
     return render_template('profile.html', user=current_user)
 
+
+'''
+    Função para a rota da página de edição de perfil.
+'''
 @main.route('/profile-edit')
 @login_required
 def profile_edit():
     return render_template('profile-edit.html', user=current_user)
 
+'''
+    Função para a rota de edição de perfil, que recebe os dados atualizados do usuário 
+    (nome de usuário, cpf, cnpj e senha e substitui os antigos por eles no banco de dados.
+'''
 @main.route('/profile-edit', methods=['POST'])
 @login_required
 def profile_edit_post():
@@ -48,11 +66,18 @@ def profile_edit_post():
     flash('Dados atualizados com sucesso!')
     return redirect(url_for('main.profile'))
 
+'''
+    Função que retorna a página de edição de senha.
+'''
 @main.route('/change-password')
 @login_required
 def change_password():
     return render_template('change_password.html')
 
+'''
+    Função lida com a operação de edição de senha, recebendo a senha nova do usuário e a substi-
+    tuindo no banco de dados.
+'''
 @main.route('/change-password', methods=['POST'])
 @login_required
 def change_password_post():
@@ -80,11 +105,18 @@ def change_password_post():
     flash('Senha trocada com sucesso!')
     return redirect(url_for('auth.logout'))
 
+'''
+    Função para a rota de emissão de notas, que retorna a página correspondente.
+'''
 @main.route('/emissao-nota')
 @login_required
 def emissao_nota():
     return render_template('emissao_nota.html')
 
+'''
+    Esta função se encarrega da automação da emissão das notas, acessando o site da prefeitura,
+    preenchendo seus formulários e gerando as notas fiscais correspondentes.
+'''
 @main.route('/emissao_nota_post', methods=['POST'])
 @login_required
 def emissao_nota_post():

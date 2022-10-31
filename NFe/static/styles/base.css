@@ -1,11 +1,16 @@
+/* Estilização de elementos com a classe de cores 'is-success' (botoões, divs, navs, etc) */
 .is-success:not(.file) {
     background: rgba(52,164,21,.6) !important; 
 }
 
+
+/* Estilização dos títulos das páginas */
 .title {
     color: #85C873 !important;
 }
 
+
+/* Estilização do spinner que indica carregamento */
 .loader-wrapper {
     position: absolute;
     top: 0;

@@ -5,14 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flask Auth Example</title>
+
+    <!-- Importação de estilizações CSS do Bulma e do arquivo base.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/base.css') }}">
-    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- Importação de scripts do Font Awesome e do arquivo scripts.css, usado para adicionar dinamismo em algumas partes da interface -->
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 </head>
 
 <body>
+    <!-- Barra de navegação -->
     <section class="hero is-fullheight">
         <div class="hero-head">
             <nav class="navbar hero is-success green-background">
@@ -48,7 +53,7 @@
                 </div>
             </nav>
         </div>
-
+        <!-- Bloco a ser preenchido pelas páginas da aplicação (todas extendem o arquivo base.html) -->
         <div class="hero-body">
             <div class="container">
                 {%block content%}
@@ -57,6 +62,7 @@
         </div>
     </section>
 
+    <!-- Modal onde aparece o spinner de carregamento na emissão de notas -->
     <div class="modal" id="modal-emissao-notas">
         <div class="modal-background"></div>
         <div class="modal-content is-centered">
