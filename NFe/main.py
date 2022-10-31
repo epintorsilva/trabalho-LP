@@ -93,7 +93,13 @@ def emissao_nota():
 @login_required
 def emissao_nota_post():
 
-    arquivo = request.files['resume']
+    arquivo = request.files.get('arquivo')
+    if not arquivo.filename:
+        flash('Nenhum arquivo selecionado.')
+        return redirect(url_for('main.emissao_nota'))
+
+    print(request.files.get("arquivo").filename)
+    return render_template('emissao_realizada.html')
     
     # driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
     # driver.get("http://www.python.org")
