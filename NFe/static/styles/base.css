@@ -13,8 +13,7 @@
     height: 100%;
     width: 100%;
     background: #fff;
-    opacity: 0;
-    z-index: -1;
+    opacity: 1;
     transition: opacity .3s;
     display: flex;
     flex-direction: column;
@@ -32,4 +31,3 @@
     color:#85C873;
     font-size: 2rem
 }
-
