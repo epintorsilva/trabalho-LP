@@ -1,29 +1,7 @@
-{% extends "base.html" %}
-
-{% block content%}
-    <div class="has-text-centered">
-        <h3 class="title">Emissão de Notas Fiscais</h3>
-        <h2 class="subtitle">
-            Para iniciar a emissão é só carregar um arquivo .csv e clicar em "Realizar emissão"
-        </h2>
-        <br/>
-        <br/>
-        <div class="file has-name is-boxed is-centered">
-        <label class="file-label">
-            <input class="file-input" type="file" name="resume">
-            <span class="file-cta">
-            <span class="file-icon">
-                <i class="fa fa-upload"></i>
-            </span>
-            <span class="file-label">
-                Escolha um arquivo
-            </span>
-            </span>
-            <span class="file-name">
-            </span>
-        </label>
-    </div>
-    <br/>
-    <button class="button is-success is-large is-centered js-modal-trigger" id="botao-modal-emissao" data-target="modal-emissao-notas">Realizar emissão</button>
-</div>
-{% endblock %}
+<html>
+    <form action="/emissao-nota2" method="post" enctype="multipart/form-data">
+        <label for="arquivo">upload arquivo</label>
+        <input type="file" id="arquivo" name="arquivo"><br>
+        <input type="submit" value="Submit">
+    </form>
+</html>

@@ -2,16 +2,10 @@ from tabnanny import check
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from . import db
-from selenium import webdriver 
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import User
-from . import db
-
 import time
+import pandas as pd
 
 main = Blueprint('main', __name__)
 
@@ -89,21 +83,8 @@ def change_password_post():
 def emissao_nota():
     return render_template('emissao_nota.html')
 
-@main.route('/emissao-nota', methods=['POST'])
+@main.route('/emissao-nota2', methods=['POST'])
 @login_required
 def emissao_nota_post():
-    
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-    driver.get("http://www.python.org")
-    position = driver.get_window_position()
-    driver.minimize_window()
-    driver.set_window_position(position['x'], position['y'])
-    time.sleep(5)
-    assert "Python" in driver.title
-    elem = driver.find_element(By.NAME, "q")
-    elem.clear()
-    elem.send_keys("pycon")
-    time.sleep(5)
-    elem.send_keys(Keys.RETURN)
-    assert "No results found." not in driver.page_source
-    return render_template('emissao_realizada.html')
+    print('1')
+    arquivo = request.files.get("arquivo")
