@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+<!-- Página de cadastro (parte 2) -->
+{% block content %}
+<div class="column is-4 is-offset-4">
+    <h3 class="title has-text-centered">Cadastro</h3>
+    <div class="box">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}. 
+            <div class="notification is-danger">
+                {{messages[0]}}.Vá para a página de <a href="{{url_for('auth.login')}}">login</a>.
+            </div>
+        {% endif%}
+        {% endwith %}
+        <form method="POST" action="{{url_for('auth.signup2_post')}}">
+            <div class = "first-signup-fields2" hidden>
+                <div class="field">
+                    <label class="label"> Usuário</label>
+                    <div class="control">
+                        <input class="input is-large" type="text" name="usuario" autofocus="" value="{{args['usuario']}}" >
+                    </div>
+                </div>
+    
+                <div class="field">
+                    <label class="label"> Senha</label>
+                    <div class="control">
+                        <input class="input is-large" type="password" name="senha1" autofocus="" value="{{args['senha1']}}">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label"> Confirmação de senha</label>
+                    <div class="control">
+                        <input class="input is-large" type="password" name="senha2" autofocus="" value="{{args['senha2']}}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="last-signup-fields">
+                
+                <div class="field">
+                    <label class="label"> CPF</label>
+                    <div class="control">
+                        <input class="input is-large" type="text" name="cpf" autofocus="">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label"> CNPJ</label>
+                    <div class="control">
+                        <input class="input is-large" type="text" name="cnpj" autofocus="">
+                    </div>
+                </div>
+            </div>
+            <br>
+            <button class="button is-block is-success is-large is-fullwidth">Cadastrar</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
